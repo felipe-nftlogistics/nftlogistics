@@ -52,6 +52,25 @@ export const metadata: Metadata = {
       "https://www.nftlogistics.com.br/imagens/operacao-nft-logistics.webp",
     ],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      // Permite citações longas para IAs (GEO) mas restringe download de mídias pesadas
+      "max-video-preview": 0,
+      "max-image-preview": "none",
+      "max-snippet": -1,
+    },
+  },
+  other: {
+    // Georreferenciamento (GEO - Generative Engine Optimization / Local SEO)
+    "geo.region": "BR-SP",
+    "geo.placename": "São Paulo, Santos, Campinas, Rio de Janeiro",
+    "geo.position": "-23.55052;-46.633308",
+    "ICBM": "-23.55052, -46.633308",
+  },
 };
 
 export default async function RootLayout({
@@ -142,6 +161,11 @@ export default async function RootLayout({
           addressCountry: "BR",
           addressRegion: "SP",
           addressLocality: "São Paulo",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: -23.55052,
+          longitude: -46.633308,
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",

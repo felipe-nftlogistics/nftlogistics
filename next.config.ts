@@ -47,12 +47,16 @@ const nextConfig: NextConfig = {
       headers: securityHeaders,
     },
     {
-      // Cache longo para mídias estáticas servidas pela aplicação
+      // Cache longo para mídias estáticas e instrução para robôs não indexarem imagens
       source: "/(imagens|icones|idiomas|logo|perfil|videos)/:path*",
       headers: [
         {
           key: "Cache-Control",
           value: "public, max-age=31536000, immutable",
+        },
+        {
+          key: "X-Robots-Tag",
+          value: "noindex, nofollow, noimageindex",
         },
       ],
     },
