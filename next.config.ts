@@ -47,8 +47,22 @@ const nextConfig: NextConfig = {
       headers: securityHeaders,
     },
     {
-      // Cache longo para mídias estáticas e instrução para robôs não indexarem imagens
-      source: "/(imagens|icones|idiomas|logo|perfil|videos)/:path*",
+      // Logotipos da marca: liberados para indexação (Google Knowledge Graph, IAs, SEO de marca) com cache longo
+      source: "/logo/:path*",
+      headers: [
+        {
+          key: "Cache-Control",
+          value: "public, max-age=31536000, immutable",
+        },
+        {
+          key: "X-Robots-Tag",
+          value: "all, index, follow",
+        },
+      ],
+    },
+    {
+      // Demais mídias pesadas: cache longo com bloqueio de indexação para robôs de mídia
+      source: "/(imagens|icones|idiomas|perfil|videos)/:path*",
       headers: [
         {
           key: "Cache-Control",

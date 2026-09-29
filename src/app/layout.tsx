@@ -58,9 +58,9 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      // Permite citações longas para IAs (GEO) mas restringe download de mídias pesadas
+      // Permite citações longas para IAs (GEO) e exibição de logo/snippets padrão da marca
       "max-video-preview": 0,
-      "max-image-preview": "none",
+      "max-image-preview": "standard",
       "max-snippet": -1,
     },
   },

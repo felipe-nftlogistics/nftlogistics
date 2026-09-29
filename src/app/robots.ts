@@ -6,7 +6,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: "/",
+        allow: [
+          "/",
+          "/logo/",
+        ],
         disallow: [
           "/api/",
           "/_next/",
@@ -14,15 +17,13 @@ export default function robots(): MetadataRoute.Robots {
           "/imagens/",
           "/videos/",
           "/icones/",
-          "/logo/",
           "/perfil/",
-          "/*.webp$",
           "/*.mp4$",
           "/*.pdf$",
         ],
       },
       // Inteligências Artificiais (ChatGPT, Perplexity, Claude, Gemini, etc.)
-      // Permite ler 100% dos dados textuais e GEO, mas bloqueia download de mídias e vídeos
+      // Permite ler 100% dos dados textuais, GEO e LOGOTIPOS da marca
       {
         userAgent: [
           "GPTBot",
@@ -35,23 +36,27 @@ export default function robots(): MetadataRoute.Robots {
           "Applebot-Extended",
           "cohere-ai",
         ],
-        allow: "/",
+        allow: [
+          "/",
+          "/logo/",
+        ],
         disallow: [
           "/imagens/",
           "/videos/",
           "/icones/",
-          "/logo/",
           "/perfil/",
-          "/*.webp$",
           "/*.mp4$",
           "/*.pdf$",
         ],
       },
-      // Bloqueia bots de busca de imagens de consumir requisições em massa
+      // Buscadores de imagem podem indexar apenas os logotipos da marca
       {
         userAgent: [
           "Googlebot-Image",
           "MSNBot-Media",
+        ],
+        allow: [
+          "/logo/",
         ],
         disallow: ["/"],
       },
