@@ -25,11 +25,13 @@ export const metadata: Metadata = constructMetadata({
   alternates: SITE_ROUTES.home,
 });
 
+import { getMediaUrl } from "@/src/lib/media";
+
 export default function PtPage() {
   return (
     <main>
       <Hero
-        videoSrc="/videos/home-nft-logistics.mp4"
+        videoSrc={getMediaUrl("/videos/home-nft-logistics.mp4")}
         title="Ajudamos empresas globais a expor, importar e operar no Brasil sem surpresas regulatórias."
         subtitle="Soluções completas em logística internacional, desembaraço aduaneiro e regimes especiais personalizadas para conectar o seu negócio ao mercado brasileiro com máxima eficiência e segurança regulatória."
         actions={

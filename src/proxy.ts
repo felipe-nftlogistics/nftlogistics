@@ -3,6 +3,13 @@ import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const userAgent = (request.headers.get("user-agent") || "").toLowerCase();
+
+  // Bloqueio de bots abusivos e scrapers conhecidos na borda para economizar requisições
+  const abusiveBots = ["bytespider", "petalbot", "semrushbot", "ahrefsbot", "mj12bot", "dotbot", "scrapy"];
+  if (abusiveBots.some((bot) => userAgent.includes(bot))) {
+    return new NextResponse("Access Denied", { status: 403 });
+  }
 
   // ─── Propaga o pathname via response header para que Server Components
   // possam ler e definir o atributo `lang` do <html> corretamente no SSR

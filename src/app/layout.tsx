@@ -59,17 +59,8 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Detecta o idioma da rota a partir do header propagado pelo middleware
-  // para garantir que o atributo `lang` do <html> seja correto no SSR
-  const headersList = await headers();
-  const pathname = headersList.get("x-pathname") || "";
-
-  let htmlLang = "en";
-  if (pathname.startsWith("/pt")) {
-    htmlLang = "pt-BR";
-  } else if (pathname.startsWith("/cn")) {
-    htmlLang = "zh-Hans";
-  }
+  // Default estático pt-BR (ajustado de forma instantânea via script inline no head conforme a rota)
+  const htmlLang = "pt-BR";
 
   // ─── Schema.org: Organization + WebSite (expandido para AI Overview) ──────
   const jsonLd = {
@@ -226,6 +217,7 @@ export default async function RootLayout({
       className={`${manrope.variable} h-full antialiased dark`}
     >
       <head>
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -236,6 +228,10 @@ export default async function RootLayout({
                 } else {
                   document.documentElement.classList.add('dark');
                 }
+                var p = window.location.pathname;
+                if (p.startsWith('/cn')) document.documentElement.lang = 'zh-Hans';
+                else if (p.startsWith('/en')) document.documentElement.lang = 'en';
+                else document.documentElement.lang = 'pt-BR';
               } catch (_) {}
             `,
           }}
